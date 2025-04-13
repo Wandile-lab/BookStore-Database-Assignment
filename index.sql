@@ -2,6 +2,7 @@ CREATE DATABASE bookstoredb;
 
 USE bookstoredb;
 
+-- CREATING TABLES
 CREATE TABLE book(
 book_id INT PRIMARY KEY AUTO_INCREMENT, 
 title VARCHAR(100),
@@ -49,7 +50,7 @@ CREATE TABLE customer_address (
     );
     
 CREATE TABLE address_status (
-address_status_id INT PRIMARY KEY AUTO_INCREMENT,
+address_status_ INT PRIMARY KEY AUTO_INCREMENT,
 status_name VARCHAR(100)
 );
 
@@ -99,14 +100,15 @@ CREATE TABLE order_status (
     order_status_id INT PRIMARY KEY AUTO_INCREMENT,
     status_name VARCHAR(100)
 );
-   
-   -- Book languages
+
+-- INSERTING SAMPLE DATA
+-- Book languages
 INSERT INTO book_language (language_name) VALUES ('English'), ('French');
 
 -- Publishers
 INSERT INTO publisher (publisher_name) VALUES ('Penguin'), ('HarperCollins'), ('Random House');
 
--- Books 
+-- Books c
 INSERT INTO book (title, publication_date) VALUES
 ('The Great Gatsby', '1925'),
 ('To Kill a Mockingbird', '1960'),
@@ -172,7 +174,7 @@ INSERT INTO order_status (status_name) VALUES ('Pending'), ('Shipped'), ('Delive
 INSERT INTO cust_order (customer_id, order_date, order_status_id, shipping_method_id) VALUES 
 (1, '2025-04-01', 1, 1),
 (2, '2025-04-02', 2, 2),
-(3, '2025-04-02', 3, 3);
+(3, '2025-04-02', 1, 3);
 
 -- Order lines 
 INSERT INTO order_line (order_id, book_id, quantity) VALUES 
@@ -185,3 +187,20 @@ INSERT INTO order_history (order_id, history_status, change_date) VALUES
 (1, 'Pending', '2025-04-01 09:00:00'),
 (2, 'Shipped', '2025-04-02 10:30:00'),
 (3, 'Pending', '2025-04-02 11:45:00');
+
+
+-- ASSIGNING ROLES
+CREATE ROLE 'admin_role';
+CREATE ROLE 'customer_role';
+
+GRANT ALL PRIVILEGES ON bookstoredb.* TO 'admin_role';
+
+GRANT SELECT ON bookstoredb.book TO 'customer_role';
+GRANT SELECT ON bookstoredb.customer TO 'customer_role';
+
+CREATE USER 'admin_user'@'localhost' IDENTIFIED BY 'admin_password';
+GRANT 'admin_role' TO 'admin_user'@'localhost';
+
+CREATE USER 'customer_user'@'localhost' IDENTIFIED BY 'customer_password';
+GRANT 'customer_role' TO 'customer_user'@'localhost';
+
