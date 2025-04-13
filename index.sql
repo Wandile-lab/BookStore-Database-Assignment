@@ -49,7 +49,7 @@ CREATE TABLE customer_address (
     );
     
 CREATE TABLE address_status (
-address_status_ INT PRIMARY KEY AUTO_INCREMENT,
+address_status_id INT PRIMARY KEY AUTO_INCREMENT,
 status_name VARCHAR(100)
 );
 
