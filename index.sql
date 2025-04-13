@@ -204,3 +204,17 @@ GRANT 'admin_role' TO 'admin_user'@'localhost';
 CREATE USER 'customer_user'@'localhost' IDENTIFIED BY 'customer_password';
 GRANT 'customer_role' TO 'customer_user'@'localhost';
 
+--Queries
+TRUNCATE TABLE book;
+
+SELECT * FROM country WHERE country_id = 2;
+USE bookstoredb;
+
+SELECT 
+    order_id,
+    order_date,
+    customer_id,
+    full_name,
+    email
+FROM cust_order co
+RIGHT JOIN customer c ON co.customer_id = c.customer_id;
